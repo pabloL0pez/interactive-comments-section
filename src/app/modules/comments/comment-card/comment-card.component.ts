@@ -7,6 +7,7 @@ import { ConfirmationDialogData } from '../../dialogs/confirmation-dialog';
 import { ConfirmationDialogComponent } from '../../dialogs/confirmation-dialog/confirmation-dialog/confirmation-dialog.component';
 import { User } from '../../users';
 import { UsersService } from '../../users/services/users.service';
+import { HighlightUserPipe } from '../pipes/highlight-user/highlight-user.pipe';
 import { CommentsService } from '../services/comments.service';
 
 @Component({
@@ -59,6 +60,7 @@ export class CommentCardComponent {
         private commentsService: CommentsService,
         private changeDetectorRef: ChangeDetectorRef,
         private matDialog: MatDialog,
+        public highlightUserPipe: HighlightUserPipe,
     ) {}
 
     /**

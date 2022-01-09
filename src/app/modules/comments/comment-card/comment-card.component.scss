@@ -221,7 +221,7 @@ p {
 
     .replies-guideline {
         @include row-center();
-        width: calc((#{$comment-padding} + #{$score-padding} + 0.5em) * 2);
+        width: calc((#{$comment-padding} + #{$score-padding} + 1em) * 2);
         align-self: stretch; // Important to make the guideline take the full height of the container
 
         .guideline {

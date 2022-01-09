@@ -53,9 +53,7 @@
         </div>
 
         <div class="comment-text">
-            <p class="text" *ngIf="!_editingComment; else editBox">
-              {{ comment?.content }}  
-            </p>
+            <p class="text" *ngIf="!_editingComment; else editBox" [innerHTML]="comment?.content! | highlightUser"></p>
 
             <ng-template #editBox>
                 <app-comment-box
@@ -74,7 +72,7 @@
 <div *ngIf="_replyBoxIsOpen" class="reply-box">
     <app-comment-box
         [buttonText]="'REPLY'"
-        [initialText]="'@' + comment?.user?.username + ', '"
+        [initialText]="'@' + comment?.user?.username + ' '"
         (commentEvent)="saveReply($event)"
     ></app-comment-box>
 </div>
