@@ -1,0 +1,9 @@
+<div class="comment-reply-box">
+    <img [src]="(currentUser$ | async)?.image?.png?.replace('./', '/assets/')">
+
+    <textarea #comment placeholder="Add a comment..." [formControl]="commentControl"></textarea>
+
+    <button class="reply-box-reply-button" (click)="saveComment()">
+        {{ buttonText }}
+    </button>
+</div>

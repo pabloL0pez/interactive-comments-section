@@ -1,0 +1,15 @@
+<main class="comments-container">
+    <ng-container *ngFor="let comment of (comments$ | async)">
+        <div class="comment">
+            <app-comment-card
+                [comment]="comment"
+            ></app-comment-card>
+        </div>
+    </ng-container>
+
+    <div class="user-comment">
+        <app-comment-box
+            (commentEvent)="saveComment($event)"
+        ></app-comment-box>
+    </div>
+</main>

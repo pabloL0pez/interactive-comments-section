@@ -1,0 +1,75 @@
+<div class="comment-container">
+    <div class="comment-votes">
+        <div class="icon score-icon plus-icon"></div>
+
+        <p class="score">{{ comment?.score }}</p>
+
+        <div class="icon score-icon minus-icon"></div>
+    </div>
+
+    <div class="comment-content">
+        <div class="comment-header">
+            <div class="comment-user">
+                <img [src]="comment?.user?.image?.png?.replace('./', '/assets/')">
+
+                <div class="username">
+                    <p class="name">{{ comment?.user?.username }}</p>
+                    <p class="you-tag" *ngIf="comment?.user?.username == (currentUser$ | async)?.username">you</p>
+                </div>
+
+                <p class="timestamp">{{ comment?.createdAt }}</p>
+            </div>
+
+            <div class="comment-buttons">
+                <div class="comment-button comment-reply-button" *ngIf="comment?.user?.username != (currentUser$ | async)?.username" (click)="openReplyBox()">
+                    <div class="icon reply-icon"></div>
+                    <button>
+                        Reply
+                    </button>
+                </div>
+
+                <div class="comment-button comment-delete-button" *ngIf="comment?.user?.username == (currentUser$ | async)?.username">
+                    <div class="icon delete-icon"></div>
+                    <button>
+                        Delete
+                    </button>
+                </div>
+
+                <div class="comment-button comment-edit-button" *ngIf="comment?.user?.username == (currentUser$ | async)?.username">
+                    <div class="icon edit-icon"></div>
+                    <button>
+                        Edit
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="comment-text">
+            <p class="text">
+              {{ comment?.content }}  
+            </p>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="_replyBoxIsOpen" class="reply-box">
+    <app-comment-box
+        [buttonText]="'REPLY'"
+        [initialText]="'@' + comment?.user?.username + ', '"
+        (commentEvent)="saveReply($event)"
+    ></app-comment-box>
+</div>
+
+<div class="comment-replies" *ngIf="comment?.replies && comment?.replies!.length > 0">
+    <div class="replies-guideline">
+        <div class="guideline"></div>
+    </div>
+
+    <div class="replies-container">
+        <div *ngFor="let reply of comment?.replies" class="reply">
+            <app-comment-card
+                [comment]="reply"
+            ></app-comment-card>
+        </div>
+    </div>
+</div>

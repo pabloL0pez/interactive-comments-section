@@ -1,0 +1,237 @@
+$user-image-size: 2em;
+$current-user-image-size: 2.25em;
+$user-elements-margin: 1em;
+$icon-width: 14px;
+$icon-height: 13px;
+$comment-max-width: 44.375em;
+$comment-padding: 1.5em;
+$score-padding: 0.75em;
+
+@mixin row-center {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+p {
+    margin: 0;
+}
+
+.comment-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: $comment-padding;
+    border-radius: 0.5em;
+    background-color: var(--white);
+    max-width: $comment-max-width;
+
+    .comment-votes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--very-light-gray);
+        margin-right: $comment-padding;
+        padding: $score-padding;
+        box-sizing: border-box;
+        border-radius: 0.5em;
+    
+        .score-icon {
+            background-color: var(--light-grayish-blue);
+            cursor: pointer;
+        }
+    
+        .score-icon:hover {
+            background-color: var(--moderate-blue);
+        }
+    
+        .minus-icon {
+            -webkit-mask: url("../../../../assets/images/icon-minus.svg") no-repeat center;
+            mask: url("../../../../assets/images/icon-minus.svg") no-repeat center;
+        }
+    
+        .score {
+            color: var(--moderate-blue);
+            font-weight: var(--weight-bold);
+            margin: $user-elements-margin 0;
+        }
+    
+        .plus-icon {
+            -webkit-mask: url("../../../../assets/images/icon-plus.svg") no-repeat center;
+            mask: url("../../../../assets/images/icon-plus.svg") no-repeat center;
+        }
+    }
+    
+    .comment-content {        
+        width: 100%;
+
+        .comment-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1em;
+        
+            .comment-user {
+                @include row-center();
+                width: fit-content;
+            
+                img {
+                    width: $user-image-size;
+                    height: $user-image-size;
+                    margin-right: $user-elements-margin;
+                }
+            
+                .username {
+                    @include row-center();
+                    margin-right: $user-elements-margin;
+
+                    .name {
+                        font-weight: var(--weight-bold);
+                        color: var(--dark-blue);
+                        margin-right: 0.5em;
+                    }
+
+                    .you-tag {
+                        font-size: 0.75em;
+                        font-weight: var(--weight-bold);
+                        color: var(--white);
+                        background-color: var(--moderate-blue);
+                        padding: 0.33em 0.66em;
+                        border-radius: 0.25em;
+                        box-sizing: border-box;
+                    }
+                }
+            
+                .timestamp {
+                    color: var(--grayish-blue);
+                }
+            }
+        
+            .comment-buttons {
+                @include row-center();
+
+                .comment-button {
+                    @include row-center();
+                    cursor: pointer;
+
+                    button {
+                        font-size: 1em;
+                        background-color: transparent;
+                        border: none;
+                        font-weight: var(--weight-bold);
+                        cursor: pointer;
+                    }
+
+                    .icon {
+                        cursor: pointer;
+                    }
+                }
+
+                .comment-button:not(:last-child) {
+                    margin-right: $user-elements-margin;
+                }
+
+                .comment-reply-button, .comment-edit-button {
+                    button {
+                        color: var(--moderate-blue);
+                    }
+
+                    .reply-icon, .edit-icon {
+                        background-color: var(--moderate-blue);
+                    }
+            
+                    .reply-icon {
+                        -webkit-mask: url("../../../../assets/images/icon-reply.svg") no-repeat center;
+                        mask: url("../../../../assets/images/icon-reply.svg") no-repeat center;
+                    }
+
+                    .edit-icon {
+                        -webkit-mask: url("../../../../assets/images/icon-edit.svg") no-repeat center;
+                        mask: url("../../../../assets/images/icon-edit.svg") no-repeat center;
+                    }
+                }
+
+                .comment-reply-button:hover, .comment-edit-button:hover {
+                    button {
+                        color: var(--light-grayish-blue);
+                    }
+            
+                    .reply-icon, .edit-icon {
+                        background-color: var(--light-grayish-blue);
+                    }
+                }
+
+                .comment-delete-button {
+                    button {
+                        color: var(--soft-red);
+                    }
+
+                    .delete-icon {
+                        background-color: var(--soft-red);
+                        -webkit-mask: url("../../../../assets/images/icon-delete.svg") no-repeat center;
+                        mask: url("../../../../assets/images/icon-delete.svg") no-repeat center;
+                    }
+                }
+
+                .comment-delete-button:hover {
+                    button {
+                        color: var(--pale-red);
+                    }
+
+                    .delete-icon {
+                        background-color: var(--pale-red);
+                    }
+                }
+            }
+        }
+        
+        .comment-text {
+            .text {
+                color: var(--grayish-blue);
+                line-height: 1.5em;
+            }
+        }
+    }
+    
+    .icon {
+        width: $icon-width;
+        height: $icon-height;
+    }
+}
+
+.reply-box {
+    margin-top: 0.5em;
+}
+
+.comment-replies {
+    @include row-center();
+    max-width: $comment-max-width;
+    margin-top: 1em;
+    width: 100%;
+
+    .replies-guideline {
+        @include row-center();
+        width: calc((#{$comment-padding} + #{$score-padding} + 0.5em) * 2);
+        align-self: stretch; // Important to make the guideline take the full height of the container
+
+        .guideline {
+            width: 2px;
+            box-sizing: border-box;
+            background-color: var(--light-grayish-blue);
+            align-self: stretch; // Important to make the guideline take the full height of the container
+        }
+    }
+
+    .replies-container {
+        width: 100%;
+
+        .reply:not(:last-child) {
+            margin-bottom: 1em;
+        }
+    }
+}
