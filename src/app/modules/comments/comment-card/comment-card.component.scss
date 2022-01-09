@@ -1,9 +1,8 @@
+@use '../styles/variables' as variables;
+
 $user-image-size: 2em;
-$current-user-image-size: 2.25em;
-$user-elements-margin: 1em;
 $icon-width: 14px;
 $icon-height: 13px;
-$comment-max-width: 44.375em;
 $comment-padding: 1.5em;
 $score-padding: 0.75em;
 
@@ -27,7 +26,7 @@ p {
     padding: $comment-padding;
     border-radius: 0.5em;
     background-color: var(--white);
-    max-width: $comment-max-width;
+    max-width: variables.$comment-max-width;
 
     .comment-votes {
         display: flex;
@@ -39,6 +38,7 @@ p {
         padding: $score-padding;
         box-sizing: border-box;
         border-radius: 0.5em;
+        width: 2.625em;
     
         .score-icon {
             background-color: var(--light-grayish-blue);
@@ -57,12 +57,17 @@ p {
         .score {
             color: var(--moderate-blue);
             font-weight: var(--weight-bold);
-            margin: $user-elements-margin 0;
+            margin: variables.$user-elements-margin 0;
         }
     
         .plus-icon {
             -webkit-mask: url("../../../../assets/images/icon-plus.svg") no-repeat center;
             mask: url("../../../../assets/images/icon-plus.svg") no-repeat center;
+        }
+        
+        .activated-icon {
+            background-color: var(--moderate-blue);
+            pointer-events: none;
         }
     }
     
@@ -83,12 +88,12 @@ p {
                 img {
                     width: $user-image-size;
                     height: $user-image-size;
-                    margin-right: $user-elements-margin;
+                    margin-right: variables.$user-elements-margin;
                 }
             
                 .username {
                     @include row-center();
-                    margin-right: $user-elements-margin;
+                    margin-right: variables.$user-elements-margin;
 
                     .name {
                         font-weight: var(--weight-bold);
@@ -133,7 +138,7 @@ p {
                 }
 
                 .comment-button:not(:last-child) {
-                    margin-right: $user-elements-margin;
+                    margin-right: variables.$user-elements-margin;
                 }
 
                 .comment-reply-button, .comment-edit-button {
@@ -210,7 +215,7 @@ p {
 
 .comment-replies {
     @include row-center();
-    max-width: $comment-max-width;
+    max-width: variables.$comment-max-width;
     margin-top: 1em;
     width: 100%;
 
@@ -222,7 +227,7 @@ p {
         .guideline {
             width: 2px;
             box-sizing: border-box;
-            background-color: var(--light-grayish-blue);
+            background-color: var(--intermediate-gray);
             align-self: stretch; // Important to make the guideline take the full height of the container
         }
     }

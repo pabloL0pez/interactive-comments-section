@@ -11,7 +11,7 @@
       "id": 1,
       "content": "Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.",
       "createdAt": "1 month ago",
-      "score": 12,
+      "score": 7,
       "user": {
         "image": { 
           "png": "./images/avatars/image-amyrobson.png",
@@ -19,7 +19,16 @@
         },
         "username": "amyrobson"
       },
-      "replies": []
+      "replies": [],
+      "scoredBy": {
+        "ramsesmiron": 1,
+        "maxblagun": 1,
+        "juliusomo": 1,
+        "amyrobson": 1,
+        "lol": 1,
+        "loll": 1,
+        "lolll": 1
+      }
     },
     {
       "id": 2,
@@ -46,6 +55,12 @@
               "webp": "./images/avatars/image-ramsesmiron.webp"
             },
             "username": "ramsesmiron"
+          },
+          "scoredBy": {
+            "ramsesmiron": 1,
+            "maxblagun": 1,
+            "amyrobson": 1,
+            "lol": 1
           }
         },
         {
@@ -60,9 +75,20 @@
               "webp": "./images/avatars/image-juliusomo.webp"
             },
             "username": "juliusomo"
+          },
+          "scoredBy": {
+            "ramsesmiron": 1,
+            "maxblagun": 1
           }
         }
-      ]
+      ],
+      "scoredBy": {
+        "ramsesmiron": 1,
+        "maxblagun": 1,
+        "amyrobson": 1,
+        "lol": 1,
+        "loll": 1
+      }
     }
   ]
 }

@@ -1,10 +1,18 @@
 <div class="comment-container">
     <div class="comment-votes">
-        <div class="icon score-icon plus-icon"></div>
+        <div
+            class="icon score-icon plus-icon"
+            [ngClass]="{'activated-icon': (currentUser$ | async)?.username && comment?.scoredBy && comment?.scoredBy![(currentUser$ | async)!.username] == 1}"
+            (click)="updateScore(1)"
+        ></div>
 
         <p class="score">{{ comment?.score }}</p>
 
-        <div class="icon score-icon minus-icon"></div>
+        <div
+            class="icon score-icon minus-icon"
+            [ngClass]="{'activated-icon': (currentUser$ | async)?.username && comment?.scoredBy && comment?.scoredBy![(currentUser$ | async)!.username] == -1}"
+            (click)="updateScore(-1)"
+        ></div>
     </div>
 
     <div class="comment-content">
@@ -28,14 +36,14 @@
                     </button>
                 </div>
 
-                <div class="comment-button comment-delete-button" *ngIf="comment?.user?.username == (currentUser$ | async)?.username">
+                <div class="comment-button comment-delete-button" *ngIf="comment?.user?.username == (currentUser$ | async)?.username" (click)="deleteComment()">
                     <div class="icon delete-icon"></div>
                     <button>
                         Delete
                     </button>
                 </div>
 
-                <div class="comment-button comment-edit-button" *ngIf="comment?.user?.username == (currentUser$ | async)?.username">
+                <div class="comment-button comment-edit-button" *ngIf="comment?.user?.username == (currentUser$ | async)?.username" (click)="_editingComment = true;">
                     <div class="icon edit-icon"></div>
                     <button>
                         Edit
@@ -45,9 +53,20 @@
         </div>
 
         <div class="comment-text">
-            <p class="text">
+            <p class="text" *ngIf="!_editingComment; else editBox">
               {{ comment?.content }}  
             </p>
+
+            <ng-template #editBox>
+                <app-comment-box
+                    [buttonText]="'UPDATE'"
+                    [initialText]="comment?.content!"
+                    [buttonPosition]="'bellow'"
+                    [showUser]="false"
+                    [padding]="'0px'"
+                    (commentEvent)="updateComment($event)"
+                ></app-comment-box>
+            </ng-template>
         </div>
     </div>
 </div>

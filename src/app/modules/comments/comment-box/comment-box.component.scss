@@ -1,8 +1,4 @@
-$current-user-image-size: 2.5em;
-$user-elements-margin: 1em;
-$comment-max-width: 44.375em;
-$box-radius: 0.5em;
-$box-padding: 1.5em;
+@use '../styles/variables' as variables;
 
 .comment-reply-box {
     display: flex;
@@ -10,23 +6,22 @@ $box-padding: 1.5em;
     align-items: flex-start;
     justify-content: center;
     box-sizing: border-box;
-    padding: $box-padding;
-    border-radius: $box-radius;
+    padding: variables.$box-padding;
+    border-radius: variables.$box-radius;
     background-color: var(--white);
-    max-width: $comment-max-width;
+    max-width: variables.$comment-max-width;
 
     img {
-        width: $current-user-image-size;
-        height: $current-user-image-size;
-        margin-right: $user-elements-margin;
+        width: variables.$current-user-image-size;
+        height: variables.$current-user-image-size;
+        margin-right: variables.$user-elements-margin;
     }
-    
+
     textarea {
         width: 100%;
-        margin-right: $user-elements-margin;
-        min-height: $current-user-image-size * 2;
-        border-radius: $box-radius;
-        padding: 1em $box-padding;
+        min-height: variables.$current-user-image-size * 3;
+        border-radius: variables.$box-radius;
+        padding: 1em variables.$box-padding;
         font-family: var(--font-family);
         font-size: var(--font-size);
         line-height: 1.5em;
@@ -34,30 +29,51 @@ $box-padding: 1.5em;
         color: var(--dark-blue);
         border-color: var(--light-gray);
         resize: none;
+        box-sizing: border-box;
     }
-
+    
     textarea:focus {
         border-color: var(--moderate-blue);
     }
-
-    .reply-box-reply-button {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        width: 7em;
-        padding: 1em 2.5em;
-        box-sizing: border-box;
-        background-color: var(--moderate-blue);
-        color: var(--white);
-        text-align: center;
-        border: none;
-        border-radius: $box-radius;
-        font-weight: var(--weight-bold);
-        cursor: pointer;
+    
+    textarea::-webkit-scrollbar {
+        display: none;
     }
 
-    .reply-box-reply-button:hover {
-        background-color: var(--light-grayish-blue);
+    .aside {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        .reply-box-reply-button {
+            margin-left: variables.$user-elements-margin;
+        }
+    }
+
+    .bellow {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-end;
+
+        .reply-box-reply-button {
+            margin-top: variables.$user-elements-margin;
+        }
+    }
+
+    .reply-container {
+        width: 100%;
+
+        .reply-box-reply-button {
+            width: 7em;
+            background-color: var(--moderate-blue);
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        .reply-box-reply-button:hover {
+            background-color: var(--light-grayish-blue);
+        }
     }
 }

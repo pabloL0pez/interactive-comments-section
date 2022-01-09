@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, from, Observable } from "rxjs";
+import { BehaviorSubject, from, Observable, ObservableInput, of } from "rxjs";
 import { map, max, switchMap, tap } from "rxjs/operators";
 import { InteractiveComment } from "..";
 import { UsersService } from "../../users/services/users.service";
@@ -60,10 +60,11 @@ export class CommentsService {
                     user: user!,
                     replyingTo: null,
                     replies: [],
+                    scoredBy: {},
                 });
 
                 this._commentsSource.next(comments);
-                // this._saveComments(comments);
+                this._saveComments(comments);
             }),
         );
     }
@@ -71,17 +72,15 @@ export class CommentsService {
     /**
      * Saves a new reply to the replies list of the corresponding user.
      * @param reply the reply to save
-     * @param commentId the id of the comment to which reply
+     * @param commentId the comment's id to which reply
      */
     saveReply(reply: string, commentId: number): Observable<any> {
         const comments: InteractiveComment[] = this._commentsSource.value;
 
         return this.usersService.getCurrentUser().pipe(
             tap(user => {
-                const receiverComment: InteractiveComment | null = this._findByCommentById(commentId, comments);
+                const receiverComment: InteractiveComment | null = this._findCommentById(commentId, comments);
                 
-                console.log(receiverComment, commentId);
-
                 if (receiverComment && !receiverComment?.replies) {
                     receiverComment!.replies = [];
                 }
@@ -94,15 +93,82 @@ export class CommentsService {
                     user: user!,
                     replyingTo: receiverComment.user.username,
                     replies: [],
+                    scoredBy: {},
                 });
 
-                console.log(comments);
-
                 this._commentsSource.next(comments);
-                // this._saveComments(comments);
+                this._saveComments(comments);
             }),
-        );
-            
+        ); 
+    }
+
+    /**
+     * Updates the score of a comment.
+     * @param score the score
+     * @param commentId the comment's id
+     */
+    updateCommentsScore(score: number, commentId: number): Observable<any> {
+        const comments: InteractiveComment[] = this._commentsSource.value;
+
+        return this.usersService.getCurrentUser().pipe(
+            tap(user => {
+                const commentToUpdate: InteractiveComment | null = this._findCommentById(commentId, comments);
+                
+                if (commentToUpdate) {
+                    if (!commentToUpdate?.scoredBy) {
+                        commentToUpdate!.scoredBy = {};
+                    }
+
+                    if (commentToUpdate?.scoredBy[user!.username] !== undefined) {
+                        commentToUpdate!.scoredBy[user!.username] += score;
+                    } else {
+                        commentToUpdate!.scoredBy[user!.username] = score;
+                    }
+
+                    commentToUpdate!.score += score;
+                }
+                
+                this._commentsSource.next(comments);
+                this._saveComments(comments);
+            }),
+        ); 
+    }
+
+    /**
+     * Updates a comment.
+     * @param newComment the new comment
+     * @param commentId the comment's id
+     */
+    updateComment(newComment: string, commentId: number): Observable<boolean> {
+        const comments: InteractiveComment[] = this._commentsSource.value;
+        const commentToUpdate: InteractiveComment | null = this._findCommentById(commentId, comments);
+        
+        if (commentToUpdate) {
+            commentToUpdate.content = newComment;
+        }
+        
+        this._commentsSource.next(comments);
+        this._saveComments(comments);
+
+        return of(true);
+    }
+
+    /**
+     * Deletes a comment.
+     * @param commentId the comment's id
+     */
+    deleteComment(commentId: number): Observable<boolean> {
+        const comments: InteractiveComment[] = this._commentsSource.value;
+        const commentFoundIn: InteractiveComment[] | null = this._findCommentsContainingCommentId(commentId, comments);
+        
+        if (commentFoundIn) {
+            commentFoundIn.splice(commentFoundIn.findIndex(comment => comment.id == commentId), 1);
+        }
+        
+        this._commentsSource.next(comments);
+        this._saveComments(comments);
+
+        return of(true);
     }
 
     /**
@@ -146,12 +212,12 @@ export class CommentsService {
     }
 
     /**
-     * Finds a comment by it's id
+     * Finds a comment by it's id.
      * @param id the comment's id
      * @param comments the list of comments where to search for
      * @returns the found comment, otherwise it returns `null`
      */
-    private _findByCommentById(id: number, comments: InteractiveComment[]): InteractiveComment | null {
+    private _findCommentById(id: number, comments: InteractiveComment[] | null): InteractiveComment | null {
         // Make sure comments is iterable
         if (comments) {
             for (let comment of comments) {
@@ -161,7 +227,7 @@ export class CommentsService {
             }
     
             for (let comment of comments) {
-                const foundComment: InteractiveComment | null = this._findByCommentById(id, comment.replies);
+                const foundComment: InteractiveComment | null = this._findCommentById(id, comment.replies);
 
                 if (foundComment) {
                     return foundComment;
@@ -169,6 +235,33 @@ export class CommentsService {
             }
         }
         
+        return null;
+    }
+
+    /**
+     * Finds an array of comments containing a comment's id.
+     * @param id the comment's id
+     * @param comments the list of comments where to search for
+     * @returns the array of comments which contain the comment for the provided id
+     */
+    private _findCommentsContainingCommentId(id: number, comments: InteractiveComment[] | null): InteractiveComment[] | null {
+        // Make sure comments is iterable
+        if (comments) {
+            for (let comment of comments) {
+                if (comment.id == id) {
+                    return comments;
+                }
+            }
+
+            for (let comment of comments) {
+                const foundComments: InteractiveComment[] | null = this._findCommentsContainingCommentId(id, comment.replies);
+
+                if (foundComments && foundComments.length > 0) {
+                    return foundComments;
+                }
+            }
+        }
+
         return null;
     }
 

@@ -8,4 +8,7 @@ export interface InteractiveComment {
     user: User;
     replyingTo: string | null;
     replies: InteractiveComment[];
+    scoredBy: {[key: string]: number};
 }
+
+export type ButtonPosition = "aside" | "bellow";

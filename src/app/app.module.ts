@@ -7,11 +7,14 @@ import { AppComponent } from './app.component';
 import { CommentsModule } from './modules/comments/comments.module';
 import { UsersModule } from './modules/users/users.module';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
     declarations: [
         AppComponent,
     ],
     imports: [
+        BrowserAnimationsModule,
         CommonModule,
         BrowserModule,
         HttpClientModule,

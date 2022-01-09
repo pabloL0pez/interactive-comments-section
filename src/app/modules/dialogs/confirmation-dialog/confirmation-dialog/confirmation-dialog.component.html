@@ -1,0 +1,31 @@
+<div class="dialog-container">
+    <h2>{{ data.title }}</h2>
+
+    <p>{{ data.message }}</p>
+
+    <div class="buttons-container">
+        <button
+            *ngIf="data.buttonConfigurations[0]"
+            [style.color]="data.buttonConfigurations[0].color"
+            [style.background-color]="_currentHoverButton == 0 ? data.buttonConfigurations[0].hoverBackgroundColor : data.buttonConfigurations[0].backgroundColor"
+            class="beeg-button"
+            (click)="matDialogRef.close(false)"
+            (mouseenter)="_currentHoverButton = 0"
+            (mouseleave)="_currentHoverButton = null"
+        >
+            {{ data.buttonConfigurations[0].text }}
+        </button>
+
+        <button
+            *ngIf="data.buttonConfigurations[1]"
+            [style.color]="data.buttonConfigurations[1].color"
+            [style.background-color]="_currentHoverButton == 1 ? data.buttonConfigurations[1].hoverBackgroundColor : data.buttonConfigurations[1].backgroundColor"
+            class="beeg-button"
+            (click)="matDialogRef.close(true)"
+            (mouseenter)="_currentHoverButton = 1"
+            (mouseleave)="_currentHoverButton = null"
+        >
+            {{ data.buttonConfigurations[1].text }}
+        </button>
+    </div>
+</div>

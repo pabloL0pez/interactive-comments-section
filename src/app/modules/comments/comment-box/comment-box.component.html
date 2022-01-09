@@ -1,9 +1,14 @@
-<div class="comment-reply-box">
-    <img [src]="(currentUser$ | async)?.image?.png?.replace('./', '/assets/')">
+<div class="comment-reply-box" [style.padding]="padding ?? ''">
+    <img *ngIf="showUser" [src]="(currentUser$ | async)?.image?.png?.replace('./', '/assets/')">
 
-    <textarea #comment placeholder="Add a comment..." [formControl]="commentControl"></textarea>
+    <div 
+        class="reply-container"
+        [ngClass]="{'aside': buttonPosition == 'aside', 'bellow': buttonPosition == 'bellow'}"
+    >
+        <textarea #comment placeholder="Add a comment..." [formControl]="commentControl"></textarea>
 
-    <button class="reply-box-reply-button" (click)="saveComment()">
-        {{ buttonText }}
-    </button>
+        <button class="beeg-button reply-box-reply-button" (click)="saveComment()">
+            {{ buttonText }}
+        </button>
+    </div>
 </div>
