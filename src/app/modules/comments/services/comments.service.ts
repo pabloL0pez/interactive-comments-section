@@ -55,7 +55,7 @@ export class CommentsService {
                 comments.push({
                     id: this._getMaxCommentId(comments) + 1,
                     content: comment,
-                    createdAt: "Wed 20",
+                    createdAt: new Date().toString(),
                     score: 0,
                     user: user!,
                     replyingTo: null,
@@ -88,7 +88,7 @@ export class CommentsService {
                 receiverComment?.replies.push({
                     id: this._getMaxCommentId(comments) + 1,
                     content: reply,
-                    createdAt: "Wed 20",
+                    createdAt: new Date().toString(),
                     score: 0,
                     user: user!,
                     replyingTo: receiverComment.user.username,
@@ -145,6 +145,7 @@ export class CommentsService {
         
         if (commentToUpdate) {
             commentToUpdate.content = newComment;
+            commentToUpdate.createdAt = new Date().toString();
         }
         
         this._commentsSource.next(comments);

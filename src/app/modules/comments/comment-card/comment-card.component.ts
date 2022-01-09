@@ -8,6 +8,7 @@ import { ConfirmationDialogComponent } from '../../dialogs/confirmation-dialog/c
 import { User } from '../../users';
 import { UsersService } from '../../users/services/users.service';
 import { HighlightUserPipe } from '../pipes/highlight-user/highlight-user.pipe';
+import { TimestampPipe } from '../pipes/timestamp/timestamp.pipe';
 import { CommentsService } from '../services/comments.service';
 
 @Component({
@@ -61,6 +62,7 @@ export class CommentCardComponent {
         private changeDetectorRef: ChangeDetectorRef,
         private matDialog: MatDialog,
         public highlightUserPipe: HighlightUserPipe,
+        public timestampPipe: TimestampPipe,
     ) {}
 
     /**

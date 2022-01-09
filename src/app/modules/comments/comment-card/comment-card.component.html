@@ -25,7 +25,7 @@
                     <p class="you-tag" *ngIf="comment?.user?.username == (currentUser$ | async)?.username">you</p>
                 </div>
 
-                <p class="timestamp">{{ comment?.createdAt }}</p>
+                <p class="timestamp">{{ comment?.createdAt! | timestamp }}</p>
             </div>
 
             <div class="comment-buttons">

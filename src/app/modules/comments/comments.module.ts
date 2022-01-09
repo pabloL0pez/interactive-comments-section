@@ -5,12 +5,17 @@ import { ConfirmationDialogModule } from "../dialogs/confirmation-dialog/confirm
 import { CommentBoxComponent } from "./comment-box/comment-box.component";
 import { CommentCardComponent } from "./comment-card/comment-card.component";
 import { HighlightUserPipe } from "./pipes/highlight-user/highlight-user.pipe";
+import { TimestampPipe } from "./pipes/timestamp/timestamp.pipe";
 import { CommentsService } from "./services/comments.service";
 
 const components: Type<any>[] = [
     CommentCardComponent,
     CommentBoxComponent,
+]
+
+const pipes: Type<any>[] = [
     HighlightUserPipe,
+    TimestampPipe,
 ]
 
 @NgModule({
@@ -19,10 +24,10 @@ const components: Type<any>[] = [
         ReactiveFormsModule,
         ConfirmationDialogModule,
     ],
-    declarations: components,
+    declarations: [...components, ...pipes],
     providers: [
         CommentsService,
-        HighlightUserPipe,
+        ...pipes,
     ],
     exports: components
 })
