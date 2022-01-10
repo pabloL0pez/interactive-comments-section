@@ -4,6 +4,10 @@
         margin-top: 0;
     }
 
+    h3 {
+        display: none;
+    }
+
     p {
         color: var(--grayish-blue);
         line-height: var(--paragraph-line-height);
@@ -21,6 +25,20 @@
 
         button:not(:last-child) {
             margin-right: 1em;
+        }
+    }
+}
+
+@media(max-width: "599px") {
+    .dialog-container {
+        h2 {
+            display: none;
+        }
+    
+        h3 {
+            display: block;
+            color: var(--dark-blue);
+            margin-top: 0;
         }
     }
 }

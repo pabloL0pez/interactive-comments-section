@@ -1,18 +1,20 @@
 <div class="comment-container">
     <div class="comment-votes">
-        <div
-            class="icon score-icon plus-icon"
-            [ngClass]="{'activated-icon': (currentUser$ | async)?.username && comment?.scoredBy && comment?.scoredBy![(currentUser$ | async)!.username] == 1}"
-            (click)="updateScore(1)"
-        ></div>
+        <div class="vote-buttons">
+            <div
+                class="icon score-icon plus-icon"
+                [ngClass]="{'activated-icon': (currentUser$ | async)?.username && comment?.scoredBy && comment?.scoredBy![(currentUser$ | async)!.username] == 1}"
+                (click)="updateScore(1)"
+            ></div>
 
-        <p class="score">{{ comment?.score }}</p>
+            <p class="score">{{ comment?.score }}</p>
 
-        <div
-            class="icon score-icon minus-icon"
-            [ngClass]="{'activated-icon': (currentUser$ | async)?.username && comment?.scoredBy && comment?.scoredBy![(currentUser$ | async)!.username] == -1}"
-            (click)="updateScore(-1)"
-        ></div>
+            <div
+                class="icon score-icon minus-icon"
+                [ngClass]="{'activated-icon': (currentUser$ | async)?.username && comment?.scoredBy && comment?.scoredBy![(currentUser$ | async)!.username] == -1}"
+                (click)="updateScore(-1)"
+            ></div>
+        </div>
     </div>
 
     <div class="comment-content">

@@ -66,7 +66,7 @@
         width: 100%;
 
         .reply-box-reply-button {
-            width: 7em;
+            min-width: 7em;
             background-color: var(--moderate-blue);
             color: var(--white);
             cursor: pointer;
@@ -74,6 +74,33 @@
 
         .reply-box-reply-button:hover {
             background-color: var(--light-grayish-blue);
+        }
+    }
+}
+
+@media(max-width: "699px") {
+    .comment-reply-box {
+        position: relative;
+        padding: variables.$box-padding-mobile;
+
+        img {
+            position: absolute;
+            width: variables.$current-user-image-size-mobile;
+            height: variables.$current-user-image-size-mobile;
+            bottom: calc(#{variables.$box-padding-mobile} + (3em - #{variables.$current-user-image-size-mobile}) / 2.5);
+            left: variables.$box-padding-mobile;
+            margin-right: 0;
+        }
+
+        .aside {
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-end;
+    
+            .reply-box-reply-button {
+                margin-left: 0;
+                margin-top: variables.$user-elements-margin;
+            }
         }
     }
 }

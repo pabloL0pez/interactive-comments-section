@@ -8,10 +8,12 @@
 
     .comment {
         margin-bottom: 1em;
-        min-width: 44.375em;
+        max-width: 44.375em;
+        width: 100%;
     }
 
     .user-comment {
-        min-width: 44.375em;
+        max-width: 44.375em;
+        width: 100%;
     }
 }
