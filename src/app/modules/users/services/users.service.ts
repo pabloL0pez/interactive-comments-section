@@ -7,6 +7,7 @@ import { User } from "..";
 @Injectable()
 export class UsersService {
 
+     /** `Subject` that saves the current state of the current user. */
     private _currentUserSource: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
 
     constructor(

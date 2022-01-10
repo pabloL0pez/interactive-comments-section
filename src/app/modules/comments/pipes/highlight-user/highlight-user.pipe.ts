@@ -3,6 +3,14 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 const userRegExp: RegExp = new RegExp(/@{1}[a-z]+/ig);
 
+/**
+ * Highlights ocurrences of usernames beign tagged in comments (aka @)
+ * 
+ * The pipe is meant to be used with a variable binding to the `[innerHTML]` property of an element, since
+ * it needs to inject styled HTML code into the element in order to display the highlighted username.
+ * 
+ * The injected HTML code is sanitized before beign sent to the host element.
+ */
 @Pipe({
     name: 'highlightUser',
 })

@@ -80,6 +80,9 @@ export class CommentBoxComponent implements OnInit, AfterViewInit {
         (<HTMLTextAreaElement>this.commentTextArea?.nativeElement).focus();
     }
 
+    /**
+     * Notifies all parent components that a new comment needs to be saved.
+     */
     saveComment(): void {
         if (this.commentControl.value != null && this.commentControl.value.length > 0) {
             this.commentEvent.emit(this.commentControl.value);
