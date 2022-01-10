@@ -1,5 +1,5 @@
 <div class="comment-reply-box" [style.padding]="padding ?? ''">
-    <img *ngIf="showUser" [src]="(currentUser$ | async)?.image?.png?.replace('./', '/assets/')">
+    <img *ngIf="showUser" [src]="(currentUser$ | async)?.image?.png?.replace('./', './assets/')">
 
     <div 
         class="reply-container"
