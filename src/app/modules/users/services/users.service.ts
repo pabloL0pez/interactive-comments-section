@@ -33,7 +33,7 @@ export class UsersService {
      * @returns an `Observable` with a `User` object which contains the user information
      */
     _getCurrentUser(): Observable<User> {
-        return from(fetch("/assets/data.json")).pipe(
+        return from(fetch("./assets/data.json")).pipe(
             switchMap(response => from(response.json())),
             map(responseJson => responseJson["currentUser"]),
         );

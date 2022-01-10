@@ -177,7 +177,7 @@ export class CommentsService {
      * @returns an `Observable` with an array of `InteractiveComment` objects
      */
     private _getComments(): Observable<InteractiveComment[]> {
-        return from(fetch("/assets/data.json")).pipe(
+        return from(fetch("./assets/data.json")).pipe(
             switchMap(response => from(response.json())),
             map(responseJson => responseJson["comments"]),
         );
